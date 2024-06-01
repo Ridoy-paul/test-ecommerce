@@ -2,12 +2,11 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontController;
 
-Route::get('/', function () {
-    return "ddd";
-})->name('index');
+
+Route::get('/',  [FrontController::class, 'index'])->name('index');
 
 Route::middleware([
     'auth:sanctum',
@@ -28,34 +27,8 @@ Route::middleware([
                 Route::get('/edit/{id}', 'edit')->name('edit');
                 Route::put('/update/{id}', 'update')->name('update');
 
-                
             });
 
         });
-
-        Route::group(['prefix'=>'transaction', 'as'=>'transaction.'], function(){
-
-            Route::controller(TransactionsController::class)->group(function () {
-                Route::get('/all', 'allTransactions')->name('all');
-                Route::get('/deposit/create', 'createDeposit')->name('deposit.create');
-                Route::post('/deposit/store', 'storeDeposit')->name('deposit.store');
-                Route::get('/deposit/list', 'depositList')->name('deposit.list');
-
-                Route::get('/withdraw/create', 'createWithdraw')->name('withdraw.create');
-                Route::post('/withdraw/store', 'storeWithdraw')->name('withdraw.store');
-                Route::get('/withdraw/list', 'withdrawList')->name('withdraw.list');
-                
-                
-                
-                
-            });
-
-        });
-
-        
     });
-  
-    
-
-
 });

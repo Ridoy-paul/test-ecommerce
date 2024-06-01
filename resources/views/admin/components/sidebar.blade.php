@@ -1,7 +1,7 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="{{ route('account.dashboard') }}">
-            <span class="align-middle">Mediusware Bank</span>
+            <span class="align-middle">Demo DEV</span>
         </a>
 
         <ul class="sidebar-nav">
@@ -12,22 +12,22 @@
                 </a>
             </li>         
 
-            @if(Auth::user()->account_type == 'super_admin')
+            
             <li class="sidebar-header">
                 Seller
             </li>
-            <li class="sidebar-item {{ isActiveRoute(['transaction.deposit.create']) }}">
-                <a class="sidebar-link" href="{{ route('transaction.deposit.create') }}">
+            <li class="sidebar-item {{ isActiveRoute(['product.create']) }}">
+                <a class="sidebar-link" href="{{ route('product.create') }}">
                     <i class="align-middle" data-feather="arrow-down-circle"></i> <span class="align-middle">Add New Seller</span>
                 </a>
             </li>
 
-            <li class="sidebar-item {{ isActiveRoute(['transaction.deposit.list']) }}">
-                <a class="sidebar-link" href="{{ route('transaction.deposit.list') }}">
+            <li class="sidebar-item {{ isActiveRoute(['product.create']) }}">
+                <a class="sidebar-link" href="{{ route('product.create') }}">
                     <i class="align-middle" data-feather="list"></i> <span class="align-middle">Seller List</span>
                 </a>
             </li>
-            @endif
+            
 
             <li class="sidebar-header">
                 Products
