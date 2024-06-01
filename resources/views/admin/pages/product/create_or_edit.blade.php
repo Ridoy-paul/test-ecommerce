@@ -19,7 +19,7 @@
                                     @endif
                                     <div class="row mb-3">
                                         <div class="col-md-12 mb-3">
-                                            <label for="title" class="form-label">Title</label>
+                                            <label for="title" class="form-label"><span class="text-danger">*</span>Title</label>
                                             <input type="text" class="form-control" id="title" name="title" value="{{ isset($product) ? $product->title : '' }}" required>
                                         </div>
                                         <div class="col-md-3 mb-3">
@@ -41,11 +41,11 @@
                                             @endif
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="min_order_qty" class="form-label">Minimum Order Quantity</label>
+                                            <label for="min_order_qty" class="form-label"><span class="text-danger">*</span>Minimum Order Quantity</label>
                                             <input type="number" class="form-control" id="min_order_qty" name="min_order_qty" value="{{ isset($product) ? $product->min_order_qty : '1' }}" required>
                                         </div>
                                         <div class="col-md-3 mb-3">
-                                            <label for="unit_type" class="form-label">Unit Type</label>
+                                            <label for="unit_type" class="form-label"><span class="text-danger">*</span>Unit Type</label>
                                             <input type="text" class="form-control" id="unit_type" name="unit_type" value="{{ isset($product) ? $product->unit_type : 'pcs' }}" required>
                                         </div>
                                         <div class="col-md-4 mb-3">
@@ -53,8 +53,8 @@
                                             <input type="text" class="form-control" id="serial_number" placeholder="If you leave empty, it will generate automatically." name="serial_number" value="{{ isset($product) ? $product->serial_number : '' }}">
                                         </div>
                                         <div class="col-md-4 mb-3">
-                                            <label for="price" class="form-label">Price</label>
-                                            <input type="number" class="form-control" id="price" name="price" step="0.01" value="{{ isset($product) ? $product->price : '' }}">
+                                            <label for="price" class="form-label"><span class="text-danger">*</span>Price</label>
+                                            <input type="number" class="form-control" required id="price" name="price" step="0.01" value="{{ isset($product) ? $product->price : '' }}">
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="original_or_copy" class="form-label">Original or Copy</label>

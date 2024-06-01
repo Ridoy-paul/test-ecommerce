@@ -21,6 +21,7 @@
                                 <th>Seller Name</th>
                                 <th>SKU / Serial</th>
                                 <th>Price</th>
+                                <th>Created At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -47,8 +48,12 @@
               {data: 'seller_name', name: 'seller_name'},
               {data: 'serial_number', name: 'serial_number'},
               {data: 'price', name: 'price'},
+              {data: 'created_at', name: 'created_at'},
               {data: 'action', name: 'action'},
-          ]
+          ],
+          "scrollY": "300px",
+          "pageLength": 100,
+          "ordering": false,
       });
           
     });

@@ -8,6 +8,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProductsController extends Controller
 {
@@ -36,6 +37,17 @@ class ProductsController extends Controller
                         ->addColumn('seller_name', function($row){
                             return $row->seller_info->name;
                         })
+                        ->addColumn('created_at', function($row){
+                            $createdAt = Carbon::parse($row->created_at);
+                            $diffInMinutes = $createdAt->diffInMinutes();
+                            $diffInHours = $createdAt->diffInHours();
+                            $hours = floor($diffInMinutes / 60);
+                            $minutes = $diffInMinutes % 60;
+                        
+                            $formattedTime = sprintf('%02d : %02dm ago', $hours, $minutes);
+                            return $formattedTime;
+                        })
+                        
                         ->addColumn('action', function($row){
                             $editUrl = route('product.edit', encrypt($row->id));
                             //$deleteUrl = route('product.destroy', $row->id);
@@ -71,13 +83,25 @@ class ProductsController extends Controller
         }
     }
 
-    public function generateProductSerial() {
-        $serial = rand(1000, 9999);
-        $exists = Products::where('serial_number', $serial)->exists();
-        if ($exists) {
-            return $this->generateProductSerial();
-        }
+    // public function generateProductSerial() {
+    //     $serial = rand(1000, 9999);
+    //     $exists = Products::where('serial_number', $serial)->exists();
+    //     if ($exists) {
+    //         return $this->generateProductSerial();
+    //     }
 
+    //     return $serial;
+    // }
+
+    public function generateProductSerial($number) {
+        $serial = str_pad($number, 5, '0', STR_PAD_LEFT);
+        $verifyBarcode = Products::where('serial_number', $serial)->first(['id']);
+    
+        if (!is_null($verifyBarcode)) {
+            $number++;
+            return $this->generateProductSerial($number);
+        }
+    
         return $serial;
     }
 
@@ -101,7 +125,16 @@ class ProductsController extends Controller
         $product->seller_id = Auth::user()->id;
         $product->min_order_qty = $request->min_order_qty;
         $product->unit_type = $request->unit_type;
-        $product->serial_number = $request->serial_number ?? self::generateProductSerial();
+
+        if($request->serial_number == '') {
+            $countProduct = Products::count('id');
+            $countProduct++;
+            $barcode = $this->generateProductSerial($countProduct);
+            $product->serial_number = $barcode;
+        } else {
+            $product->serial_number = $request->serial_number;
+        }
+        
         $product->price = $request->price;
         $product->original_or_copy = $request->original_or_copy;
         $product->descriptions = $request->descriptions;
@@ -177,24 +210,19 @@ class ProductsController extends Controller
         $product->descriptions = $request->descriptions;
     
         if ($request->hasFile('thumbnail_image')) {
-            // Delete old image
             FileHelper::deleteImage($product->thumbnail_image, 'images');
-    
-            // Upload new image
             $product->thumbnail_image = FileHelper::uploadImage($request->thumbnail_image, 'images');
         }
     
         $product->save();
     
         if ($request->hasFile('gallery_images')) {
-            // Delete old gallery images
             $oldGalleryImages = ProductGalleries::where('product_id', $product->id)->get();
             foreach ($oldGalleryImages as $oldImage) {
                 FileHelper::deleteImage($oldImage->image, 'images');
                 $oldImage->delete();
             }
     
-            // Upload new gallery images
             foreach ($request->file('gallery_images') as $file) {
                 $galleryImage = new ProductGalleries();
                 $galleryImage->product_id = $product->id;
