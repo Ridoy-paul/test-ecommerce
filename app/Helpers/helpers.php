@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 
 if (!function_exists('isActiveRoute')) {
     function isActiveRoute($routes){
@@ -10,3 +12,4 @@ if (!function_exists('isActiveRoute')) {
         return '';
     }
 }
+

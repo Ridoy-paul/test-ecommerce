@@ -25,14 +25,9 @@ Route::middleware([
                 Route::get('/all', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
                 Route::post('/store', 'store')->name('store');
-                Route::get('/deposit/list', 'depositList')->name('deposit.list');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::put('/update/{id}', 'update')->name('update');
 
-                Route::get('/withdraw/create', 'createWithdraw')->name('withdraw.create');
-                Route::post('/withdraw/store', 'storeWithdraw')->name('withdraw.store');
-                Route::get('/withdraw/list', 'withdrawList')->name('withdraw.list');
-                
-                
-                
                 
             });
 

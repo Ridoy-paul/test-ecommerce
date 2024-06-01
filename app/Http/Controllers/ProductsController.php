@@ -2,17 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FileHelper;
+use App\Models\ProductGalleries;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        
+        try {
+            if ($request->ajax()) {
+
+                $query = Products::with([
+                    'seller_info' => function($query) {
+                        $query->select('id', 'name');
+                    }
+                ]);
+
+                if(Auth::user()->account_type == 'seller') {
+                    $query = $query->where('seller_id', Auth::user()->id);
+                }
+
+                $query = $query->orderBy('id', 'DESC')->get();
+
+                return Datatables::of($query)
+                        ->addIndexColumn()
+                        ->addColumn('seller_name', function($row){
+                            return $row->seller_info->name;
+                        })
+                        ->addColumn('action', function($row){
+                            $editUrl = route('product.edit', encrypt($row->id));
+                            //$deleteUrl = route('product.destroy', $row->id);
+                            
+                            return '
+                                <a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="' . $editUrl . '" class="btn btn-danger btn-sm">Delete</a>
+                            ';
+                        })
+                        
+                        ->rawColumns(['seller_name', 'action'])
+                        ->make(true);
+            }
+
+            return view('admin.pages.product.index');
+
+        } 
+        catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
     }
 
     /**
@@ -26,6 +69,16 @@ class ProductsController extends Controller
         catch (\Exception $e) {
             return back()->withError($e->getMessage());
         }
+    }
+
+    public function generateProductSerial() {
+        $serial = rand(1000, 9999);
+        $exists = Products::where('serial_number', $serial)->exists();
+        if ($exists) {
+            return $this->generateProductSerial();
+        }
+
+        return $serial;
     }
 
     /**
@@ -45,29 +98,30 @@ class ProductsController extends Controller
 
         $product = new Products;
         $product->title = $request->title;
+        $product->seller_id = Auth::user()->id;
         $product->min_order_qty = $request->min_order_qty;
         $product->unit_type = $request->unit_type;
-        $product->serial_number = $request->serial_number ?? 'SN-' . strtoupper(uniqid());
+        $product->serial_number = $request->serial_number ?? self::generateProductSerial();
         $product->price = $request->price;
         $product->original_or_copy = $request->original_or_copy;
         $product->descriptions = $request->descriptions;
 
         if ($request->hasFile('thumbnail_image')) {
-            $product->thumbnail_image = $request->file('thumbnail_image')->store('products/thumbnails');
-        }
-
-        if ($request->hasFile('gallery_images')) {
-            $galleryImages = [];
-            foreach ($request->file('gallery_images') as $file) {
-                $galleryImages[] = $file->store('products/gallery');
-            }
-            $product->gallery_images = json_encode($galleryImages);
+            $product->thumbnail_image = FileHelper::uploadImage($request->thumbnail_image, 'images');
         }
 
         $product->save();
 
+        if ($request->hasFile('gallery_images')) {
+            foreach ($request->file('gallery_images') as $file) {
+                $galleryImage = new ProductGalleries();
+                $galleryImage->product_id = $product->id;
+                $galleryImage->image = FileHelper::uploadImage($file, 'images');
+                $galleryImage->save();
+            }
+        }
+
         return redirect()->route('product.index')->with('success', 'Product created successfully.');
-    
     }
 
     /**
@@ -81,18 +135,78 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit($id)
     {
-        
+        try {
+            $id = decrypt($id);
+            $product = Products::with('galleries')->find($id);
+            return view('admin.pages.product.create_or_edit', compact('product'));
+        } 
+        catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, $id)
     {
-        
+        $request->validate([
+            'title' => 'required',
+            'min_order_qty' => 'required|integer',
+            'unit_type' => 'required',
+            'serial_number' => 'nullable|unique:products,serial_number,' . $id,
+            'price' => 'nullable|numeric',
+            'original_or_copy' => 'required',
+            'descriptions' => 'nullable',
+        ]);
+    
+        $product = Products::find($id);
+    
+        if (!$product) {
+            return redirect()->route('product.index')->with('error', 'Product not found.');
+        }
+    
+        $product->title = $request->title;
+        $product->min_order_qty = $request->min_order_qty;
+        $product->unit_type = $request->unit_type;
+        $product->serial_number = $request->serial_number ?? $product->serial_number;
+        $product->price = $request->price;
+        $product->original_or_copy = $request->original_or_copy;
+        $product->descriptions = $request->descriptions;
+    
+        if ($request->hasFile('thumbnail_image')) {
+            // Delete old image
+            FileHelper::deleteImage($product->thumbnail_image, 'images');
+    
+            // Upload new image
+            $product->thumbnail_image = FileHelper::uploadImage($request->thumbnail_image, 'images');
+        }
+    
+        $product->save();
+    
+        if ($request->hasFile('gallery_images')) {
+            // Delete old gallery images
+            $oldGalleryImages = ProductGalleries::where('product_id', $product->id)->get();
+            foreach ($oldGalleryImages as $oldImage) {
+                FileHelper::deleteImage($oldImage->image, 'images');
+                $oldImage->delete();
+            }
+    
+            // Upload new gallery images
+            foreach ($request->file('gallery_images') as $file) {
+                $galleryImage = new ProductGalleries();
+                $galleryImage->product_id = $product->id;
+                $galleryImage->image = FileHelper::uploadImage($file, 'images');
+                $galleryImage->save();
+            }
+        }
+    
+        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
+    
     }
+
 
     /**
      * Remove the specified resource from storage.

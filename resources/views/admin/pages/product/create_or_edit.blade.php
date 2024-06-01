@@ -25,10 +25,20 @@
                                         <div class="col-md-3 mb-3">
                                             <label for="thumbnail_image" class="form-label">Thumbnail Image</label>
                                             <input type="file" class="form-control" id="thumbnail_image" name="thumbnail_image">
+                                            @if(isset($product) && $product->thumbnail_image)
+                                                <img src="{{ asset('images/' . $product->thumbnail_image) }}" alt="Thumbnail" class="img-thumbnail mt-2" style="width: 100px;">
+                                            @endif
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="gallery_images" class="form-label">Gallery Images</label>
                                             <input type="file" class="form-control" id="gallery_images" multiple name="gallery_images[]">
+                                            @if(isset($product) && count($product->galleries) > 0)
+                                                <div class="mt-2">
+                                                    @foreach($product->galleries as $image)
+                                                        <img src="{{ asset('images/' . $image->image) }}" class="img-thumbnail mr-2" style="width: 100px;">
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="min_order_qty" class="form-label">Minimum Order Quantity</label>
