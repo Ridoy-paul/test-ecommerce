@@ -4,11 +4,11 @@
     </a>
     <h2 style="margin-top: 6px;">
         <b>
-            {{-- @if(Auth::user()->account_type == 'super_admin')
+            @if(optional(Auth::user())->account_type == 'super_admin')
              Super Admin Panel
             @else
             Seller Panel
-            @endif --}}
+            @endif
         </b>
     </h2>
     
