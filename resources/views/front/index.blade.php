@@ -29,310 +29,74 @@
     <div class="container-fluid px-0 py-5">
          <div class="container pt-5">
               <div class="row">
-               
                 <div class="col-md-12 px-0  pt-5" style="">
                     <div class="col-sm-12 text-center">
-                        <h2 >Our services</h2>
-                        <p class="m-0 ">Hight Quality, Effectiveness and Competitive Prices</p>
+                        <h2 >Product List</h2>
                     </div>
                     <div class="col-md-12 px-0 p-t-30 ">
                       <div class="owl-carousel carousel_se_01_carousel owl-theme">
-                               <!-- 1 -->
-                               <div class="item">
-                                 <div class="col-md-12 wow fadeInUp ">
-                                    <div class="main_services text-center" style="">
-                                        <a href="#">
-                                          <div class="round_icon_img">
-                                              <i class="icofont-map-pins"></i>
-                                          </div>
-                                          <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                        </a>
-                                    </div>
-                                  </div>
-                               </div>
-
-                               <!-- 2 -->
-                               <div class="item">
-                                 <div class="col-md-12 wow fadeInUp delay-2">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
+                            <!-- 1 -->
+                            <div class="item">
+                                <div class="col-md-12 wow fadeInUp ">
+                                <div class="main_services text-center" style="">
+                                    <a href="#">
                                         <div class="round_icon_img">
-                                            <i class="icofont-binoculars"></i>
-                                        </div>
-                                        <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                      </a>
-                                    </div>
-                                  </div>
-                               </div>
-
-                              <!-- 3 -->
-                              <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
+                                            <i class="icofont-map-pins"></i>
                                         </div>
                                         <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                      </a>
-                                    </div>
-                                  </div>
+                                    </a>
                                 </div>
-
-                                <!-- 4-->
-                              <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
-                                        </div>
-                                       <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                      </a>
-                                    </div>
-                                  </div>
                                 </div>
-                              </div>
-                          </div>
-                </div>
-                
-            </div>
-         </div>
-    </div>
-</section> 
-
-<section class="carousel_se_02">
-    <div class="container-fluid py-5">
-         <div class="container  bg-light">
-              <div class="row">
-                <div class="col-sm-12 text-center wow fadeInUp">
-                    <h2 >Our Products</h2>
-                </div>
-                    <div class="col-md-12 px-4 pt-0">
-                          <div class="owl-carousel carousel_se_02_carousel owl-theme">
-                                <!-- 01 -->
-                                <div class="item">
-                                 <div class="col-sm-12 p-2 wow fadeInUp delay-1">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                          </div>
-                                         <h4 class="mt-3">Lorem ipsum</h4>
-                                          
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
-                                
-
-                               <!-- 2 -->
-                               <div class="item">
-                                 <div class="col-sm-12 p-2 wow fadeInUp delay-3">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                              
-                                          </div>
-                                          <h4 class="mt-3">Lorem ipsum</h4>
-                                         
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
-                               <!-- 3 -->
-                               <div class="item">
-                                 <div class="col-sm-12 p-2 wow fadeInUp delay-4">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                              
-                                          </div>
-                                         <h4 class="mt-3">Lorem ipsum</h4>
-                                         
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
-                               
-
-                               <!-- 4 -->
-                               <div class="item">
-                                 <div class="col-sm-12 p-2 wow fadeInUp delay-2">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                              
-                                          </div>
-                                          <h4 class="mt-3">Lorem ipsum</h4>
-                                          
-                                         
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
-                               <!-- 5 -->
-                               <div class="item">
-                                 <div class="col-sm-12 p-2">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                              
-                                          </div>
-                                          <h4 class="mt-3">Lorem ipsum</h4>
-                                          
-                                         
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
-                               <!-- 6 -->
-                               <div class="item">
-                                 <div class="col-sm-12 p-2">
-                                     <div class="">
-                                          <div class="product-image3 hover15">
-                                             <img src="https://picsum.photos/id/1012/300/250" class="img-fluid pic-1">
-                                          </div>
-                                          <h4 class="mt-3">Lorem ipsum</h4>
-                                         
-                                    </div>
-                                  </div>
-                                  
-                               </div>
-
                             </div>
-                      </div>
 
-            </div>
+                            <!-- 2 -->
+                            <div class="item">
+                                <div class="col-md-12 wow fadeInUp delay-2">
+                                <div class="main_services text-center" >
+                                    <a href="#">
+                                    <div class="round_icon_img">
+                                        <i class="icofont-binoculars"></i>
+                                    </div>
+                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
+                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
 
-            <!-- our clients -->
-            
-         </div>
-    </div>
-</section> 
+                            <!-- 3 -->
+                            <div class="item">
+                            <div class="col-md-12 wow fadeInUp delay-3">
+                                <div class="main_services text-center" >
+                                    <a href="#">
+                                    <div class="round_icon_img">
+                                        <i class="icofont-network-tower"></i>
+                                    </div>
+                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
 
-<section class="carousel_se_03">
-    <div class="container-fluid px-0 py-5">
-         <div class="container ">
-              <div class="row">
-               
-                <div class="col-md-12 px-0 " style="">
-                    <div class="col-sm-12 text-center">
-                        <h2 >Our Features</h2>
-                       
+                            <!-- 4-->
+                            <div class="item">
+                            <div class="col-md-12 wow fadeInUp delay-3">
+                                <div class="main_services text-center" >
+                                    <a href="#">
+                                    <div class="round_icon_img">
+                                        <i class="icofont-network-tower"></i>
+                                    </div>
+                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-md-12 px-0 p-t-30 ">
-                      <div class="owl-carousel carousel_se_03_carousel owl-theme">
-                               <!--1 -->
-                               <div class="item">
-                                 <div class="col-md-12 wow fadeInUp ">
-                                    <div class="main_services text-center" style="">
-                                        <a href="#">
-                                          <div class="round_icon_img">
-                                              <i class="icofont-map-pins"></i>
-                                          </div>
-                                          <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                        </a>
-                                    </div>
-                                  </div>
-                               </div>
-
-                               <!-- 2-->
-                               <div class="item">
-                                 <div class="col-md-12 wow fadeInUp delay-2">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-binoculars"></i>
-                                        </div>
-                                        <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                         
-                                      </a>
-                                    </div>
-                                  </div>
-                               </div>
-
-                              <!-- 3 -->
-                              <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
-                                        </div>
-                                        <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                        
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <!-- 4 -->
-                              <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
-                                        </div>
-                                        <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                        
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 05 -->
-                                <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
-                                        </div>
-                                        <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                        
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                                <!-- 06 -->
-                                <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-3">
-                                    <div class="main_services text-center" >
-                                      <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-network-tower"></i>
-                                        </div>
-                                        <p class="mt-3"> Lorem ipsum dolor sit </p>
-                                          
-                                        
-                                      </a>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
                 </div>
-
-                <div class="col-md-12 px-0 p-t-30 text-center pt-4">
-                      <a href="#" class="btn btn-primary">Know more</a>
-                </div>
-                
-                   
             </div>
          </div>
     </div>
