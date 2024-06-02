@@ -99,18 +99,18 @@
                                     <img src="{{ asset('front_resources/img/seller.png') }}" style="width: 50px; height: 50px;">
                                     {{-- <span>Seller Name</span> --}}
                                   </div>
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <div class="row">
-                                        <div class="col-md-12 border">
-                                            T-shirt
-                                        </div>
-                                        <div class="col-md-6 border">
-                                            Min Order: 1pcs
-                                        </div>
-                                        <div class="col-md-6 border">
-                                            Sl No: 121
-                                        </div>
-                                    </div>
+                                  <div class="bg-light rounded m-1">
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                          <tr>
+                                            <td colspan="2">T-shirt</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Min Order: 1pcs</td>
+                                            <td>Sl No: 121</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
                                   </div>
                                   <div class="bg-light rounded p-2 m-1">
                                     <img src="{{ asset('front_resources/img/customer-review.png') }}" style="width: 50px; height: 50px;">
@@ -134,7 +134,6 @@
                                   </div>
                                 </div>
                             </div>
-                            
                             @endfor
                       </div>
                 </div>

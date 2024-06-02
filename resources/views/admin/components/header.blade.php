@@ -88,25 +88,16 @@
                 </a>
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                    <img src="{{ asset('admin_resources/img/avatars/profile.jpg') }}"
-                        class="avatar img-fluid rounded me-1" alt="Charles Hall" /> 
-                        <span class="text-dark">
-                            {{ optional( Auth::user())->name }}
-                        </span>
+                    <img src="{{ asset('admin_resources/img/avatars/profile.jpg') }}" class="avatar img-fluid rounded me-1" /> 
+                    <span class="text-dark">
+                        {{ optional( Auth::user())->name }}
+                    </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                            data-feather="user"></i> Profile</a>
-                    
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="settings"></i>
-                        Settings & Privacy</a>
-                    <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help
-                        Center</a>
+                    <a class="dropdown-item" href="{{ route('account.profile', ['id' =>  encrypt(Auth::user()->id)]) }}"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                     <div class="dropdown-divider"></div>
                     <form method="POST" action="{{ route('logout') }}" x-data>
                         @csrf
-
                         <button class="dropdown-item" type="submit">Log out</button>
                     </form>
                 </div>

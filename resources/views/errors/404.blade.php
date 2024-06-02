@@ -34,7 +34,7 @@
                     <span class="error-code">404</span>
                     <h1>Page Not Found</h1>
                     <p class="error-message">Sorry, the page you are looking for could not be found.</p>
-                    <span class="text-danger">{{ $exception->getMessage() }}</span>
+                    {{-- <span class="text-danger">{{ $exception->getMessage() }}</span> --}}
                     <div class="mt-4">
                         <a href="/" class="btn btn-primary">Go to Homepage</a>
                     </div>

@@ -17,7 +17,9 @@ Route::middleware([
     Route::get('/dashboard',  [HomeController::class, 'dashboard'])->name('account.dashboard');
 
     Route::middleware(['isAccountHolder'])->group(function () {
-
+        Route::get('/get/{id}/profile',  [HomeController::class, 'getProfile'])->name('account.profile');
+        Route::put('/update-profile',  [HomeController::class, 'updateProfile'])->name('profile.update');
+        
         Route::group(['prefix'=>'product', 'as'=>'product.'], function(){
 
             Route::controller(ProductsController::class)->group(function () {

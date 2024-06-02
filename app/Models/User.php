@@ -29,6 +29,8 @@ class User extends Authenticatable
         'name',
         'account_type',
         'disctrict_code',
+        'address',
+        'image',
         'email',
         'password',
     ];
@@ -67,11 +69,6 @@ class User extends Authenticatable
         ];
     }
 
-
-    public function transactions()
-    {
-        return $this->hasMany(Transactions::class, 'user_id')->where('user_id', Auth::user()->id);
-    }
 
 
 }
