@@ -11,6 +11,7 @@ use App\Helpers\FileHelper;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\DB;
+use App\Models\Products;
 
 class HomeController extends Controller
 {
@@ -155,21 +156,43 @@ class HomeController extends Controller
         return redirect()->route('account.profile', ['id' => encrypt($user->id)])->with('success', 'Profile updated successfully.');
     }
 
-    public function sellerDestroy($id)
-    {
+    public function sellerDestroy($id) {
         try {
-            if(Auth::user()->account_type <> 'super_admin') {
-                return redirect()->back()->with('error', 'You can not access this page.');
+            if (Auth::user()->account_type !== 'super_admin') {
+                return redirect()->back()->with('error', 'You cannot access this page.');
             }
 
             $id = decrypt($id);
-            $user = User::where('id', $id)->first();
-            $districtList = District::all();
-            //return view('admin.pages.account.profile', compact('user', 'districtList'));
+            $user = User::find($id);
+            if (is_null($user)) {
+                return redirect()->back()->with('error', 'No User Found!');
+            }
+
+            $products = Products::where('user_id', $id)->get(['id', 'thumbnail_image']);
+            foreach ($products as $product) {
+                if (!empty($product->thumbnail_image)) {
+                    $imagePath = public_path('images/' . $product->thumbnail_image);
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
+                }
+                $product->delete();
+            }
+
+            if (!empty($user->image)) {
+                $imagePath = public_path('images/' . $user->image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
+            $user->delete();
+            return redirect()->route('seller.list')->with('success', 'Seller and their products deleted successfully.');
         } catch (\Exception $e) {
             return back()->withError($e->getMessage());
         }
     }
+
 
     
 
