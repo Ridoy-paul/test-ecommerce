@@ -10,20 +10,26 @@
                 <a class="sidebar-link" href="{{ route('account.dashboard') }}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
-            </li>         
-
+            </li>
+            
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="{{ route('account.profile', ['id' =>  encrypt(Auth::user()->id)]) }}">
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Business Profile</span>
+                </a>
+            </li>
+            
             @if(optional(Auth::user())->account_type == 'super_admin')
             <li class="sidebar-header">
                 Seller
             </li>
-            <li class="sidebar-item {{ isActiveRoute(['transaction.deposit.create']) }}">
-                <a class="sidebar-link" href="{{ route('transaction.deposit.create') }}">
+            <li class="sidebar-item {{ isActiveRoute(['seller.create']) }}">
+                <a class="sidebar-link" href="{{ route('seller.create') }}">
                     <i class="align-middle" data-feather="arrow-down-circle"></i> <span class="align-middle">Add New Seller</span>
                 </a>
             </li>
 
-            <li class="sidebar-item {{ isActiveRoute(['transaction.deposit.list']) }}">
-                <a class="sidebar-link" href="{{ route('transaction.deposit.list') }}">
+            <li class="sidebar-item {{ isActiveRoute(['seller.list']) }}">
+                <a class="sidebar-link" href="{{ route('seller.list') }}">
                     <i class="align-middle" data-feather="list"></i> <span class="align-middle">Seller List</span>
                 </a>
             </li>

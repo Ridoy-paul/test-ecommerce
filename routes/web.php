@@ -19,9 +19,16 @@ Route::middleware([
     Route::middleware(['isAccountHolder'])->group(function () {
         Route::get('/get/{id}/profile',  [HomeController::class, 'getProfile'])->name('account.profile');
         Route::put('/update-profile',  [HomeController::class, 'updateProfile'])->name('profile.update');
+
+        Route::group(['prefix'=>'seller', 'as'=>'seller.'], function(){
+            Route::controller(HomeController::class)->group(function () {
+                Route::get('/all', 'sellerList')->name('list');
+                Route::get('/create', 'sellerCreate')->name('create');
+                Route::post('/store', 'sellerStore')->name('store');
+            });
+        });
         
         Route::group(['prefix'=>'product', 'as'=>'product.'], function(){
-
             Route::controller(ProductsController::class)->group(function () {
                 Route::get('/all', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
@@ -30,7 +37,6 @@ Route::middleware([
                 Route::put('/update/{id}', 'update')->name('update');
 
             });
-
         });
     });
 });

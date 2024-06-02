@@ -81,7 +81,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                        <button type="submit" class="btn btn-primary mt-3">Update Profile</button>
                     </form>
                 </div>
             </div>
