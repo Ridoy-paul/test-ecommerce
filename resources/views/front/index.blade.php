@@ -1,106 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owl Carousel Multiple Rows</title>
+  <!-- Owl Carousel CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <style>
+    html {
+      font-family: 'arial';
+    }
+    header {
+      margin-bottom: 40px;
+    }
+    .slide {
+      font-size: 50px;
+      text-align: center;
+      border: 1px solid black;
+      margin-bottom: 20px;
+    }
+    .fake-col-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    'Simple' example of how to achieve a <b>truly responsive multiple rows</b> carousel using Owl Carousel. <a href="https://stackoverflow.com/a/64356269/2500651">Corresponding Stack Overflow post</a>. Feel free to use this code if you need it. 👾<br/><br/>
+    ✅ Tested & working with <b>any number of columns and rows, and any breakpoints</b>. Also with loop: true/false, slideBy: 1/n/'page', etc...<br/>
+    ✅ Implementation is as efficient as possible, meaning <b>the carousel is recalculated only if absolutely necessary</b>. I haven't noticed any kind of stuttering or visual artifacts.<br/>
+    ✅ For readability and simplicity purposes, setting the desired number of rows for a given window width is done the exact same way as the native number of items, in the carousel options object. 'items' here acts as the number of columns visible at a time.<br/><br/>
+    <b>Note:</b> The whole logic is done in javascript, but be sure to add <b>data-slide-index="0..n"</b> attributes to your slides HTML, as it is needed. ⚠
+  </header>
+  <div class="owl-carousel owl-theme">
+    <div class="slide" data-slide-index="0">1</div>
+    <div class="slide" data-slide-index="1">2</div>
+    <div class="slide" data-slide-index="2">3</div>
+    <div class="slide" data-slide-index="3">4</div>
+    <div class="slide" data-slide-index="4">5</div>
+    <div class="slide" data-slide-index="5">6</div>
+    <div class="slide" data-slide-index="6">7</div>
+    <div class="slide" data-slide-index="7">8</div>
+    <div class="slide" data-slide-index="8">9</div>
+    <div class="slide" data-slide-index="9">10</div>
+    <div class="slide" data-slide-index="10">11</div>
+    <div class="slide" data-slide-index="11">12</div>
+    <div class="slide" data-slide-index="12">7</div>
+    <div class="slide" data-slide-index="13">8</div>
+    <div class="slide" data-slide-index="14">9</div>
+    <div class="slide" data-slide-index="15">10</div>
+    <div class="slide" data-slide-index="16">11</div>
+    <div class="slide" data-slide-index="17">12</div>
+  </div>
 
-    <!-- Vendor CSS Files -->
-    <link href="{{ asset('front_resources/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    
-    <link href="{{ asset('front_resources/assets/vendor/fontawesome/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('front_resources/assets/vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Owl Carousel JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var el = $('.owl-carousel');
+      var carousel;
+      var carouselOptions = {
+        margin: 20,
+        nav: true,
+        dots: true,
+        slideBy: 'page',
+        autoplay: true,
+        autoplayTimeout: 10000, // 10 seconds
+        responsive: {
+          0: {
+            items: 1,
+            rows: 2 // custom option not used by Owl Carousel, but used by the algorithm below
+          },
+          768: {
+            items: 2,
+            rows: 3 // custom option not used by Owl Carousel, but used by the algorithm below
+          },
+          991: {
+            items: 3,
+            rows: 2 // custom option not used by Owl Carousel, but used by the algorithm below
+          }
+        }
+      };
 
-   <link href="{{ asset('front_resources/assets/vendor/icofont/icofont.min.css') }}" rel="stylesheet">
+      // Taken from Owl Carousel so we calculate width the same way
+      var viewport = function() {
+        var width;
+        if (carouselOptions.responsiveBaseElement && carouselOptions.responsiveBaseElement !== window) {
+          width = $(carouselOptions.responsiveBaseElement).width();
+        } else if (window.innerWidth) {
+          width = window.innerWidth;
+        } else if (document.documentElement && document.documentElement.clientWidth) {
+          width = document.documentElement.clientWidth;
+        } else {
+          console.warn('Can not detect viewport width.');
+        }
+        return width;
+      };
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('front_resources/assets/css/style.css') }}">
-     
-    <script src="{{ asset('front_resources/assets/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('front_resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('front_resources/assets/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-   
+      var severalRows = false;
+      var orderedBreakpoints = [];
+      for (var breakpoint in carouselOptions.responsive) {
+        if (carouselOptions.responsive[breakpoint].rows > 1) {
+          severalRows = true;
+        }
+        orderedBreakpoints.push(parseInt(breakpoint));
+      }
 
-    <script src="{{ asset('front_resources/assets/js/carausol_slider.js') }}"></script>
-    <title>Carousel  slider multiple design  example </title>
-  </head>
-  <body>
+      // Custom logic is active if carousel is set up to have more than one row for some given window width
+      if (severalRows) {
+        orderedBreakpoints.sort(function (a, b) {
+          return b - a;
+        });
+        var slides = el.find('[data-slide-index]');
+        var slidesNb = slides.length;
+        if (slidesNb > 0) {
+          var rowsNb;
+          var previousRowsNb = undefined;
+          var colsNb;
+          var previousColsNb = undefined;
 
-<section class="carousel_se_01">
-    <div class="container-fluid px-0 py-5">
-         <div class="container pt-5">
-              <div class="row">
-                <div class="col-md-12 px-0  pt-5" style="">
-                    <div class="col-sm-12 text-center">
-                        <h2 >Product List</h2>
-                    </div>
-                    <div class="col-md-12 px-0 p-t-30 ">
-                      <div class="owl-carousel carousel_se_01_carousel owl-theme">
-                            <!-- 1 -->
-                            <div class="item">
-                                <div class="col-md-12 wow fadeInUp ">
-                                <div class="main_services text-center" style="">
-                                    <a href="#">
-                                        <div class="round_icon_img">
-                                            <i class="icofont-map-pins"></i>
-                                        </div>
-                                        <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                    </a>
-                                </div>
-                                </div>
-                            </div>
+          // Calculates number of rows and cols based on current window width
+          var updateRowsColsNb = function () {
+            var width = viewport();
+            for (var i = 0; i < orderedBreakpoints.length; i++) {
+              var breakpoint = orderedBreakpoints[i];
+              if (width >= breakpoint || i == (orderedBreakpoints.length - 1)) {
+                var breakpointSettings = carouselOptions.responsive['' + breakpoint];
+                rowsNb = breakpointSettings.rows;
+                colsNb = breakpointSettings.items;
+                break;
+              }
+            }
+          };
 
-                            <!-- 2 -->
-                            <div class="item">
-                                <div class="col-md-12 wow fadeInUp delay-2">
-                                <div class="main_services text-center" >
-                                    <a href="#">
-                                    <div class="round_icon_img">
-                                        <i class="icofont-binoculars"></i>
-                                    </div>
-                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                    </a>
-                                </div>
-                                </div>
-                            </div>
+          var updateCarousel = function () {
+            updateRowsColsNb();
 
-                            <!-- 3 -->
-                            <div class="item">
-                            <div class="col-md-12 wow fadeInUp delay-3">
-                                <div class="main_services text-center" >
-                                    <a href="#">
-                                    <div class="round_icon_img">
-                                        <i class="icofont-network-tower"></i>
-                                    </div>
-                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                    </a>
-                                </div>
-                                </div>
-                            </div>
+            // Carousel is recalculated if and only if a change in number of columns/rows is requested
+            if (rowsNb != previousRowsNb || colsNb != previousColsNb) {
+              var reInit = false;
+              if (carousel) {
+                // Destroy existing carousel if any, and set html markup back to its initial state
+                carousel.trigger('destroy.owl.carousel');
+                carousel = undefined;
+                slides = el.find('[data-slide-index]').detach().appendTo(el);
+                el.find('.fake-col-wrapper').remove();
+                reInit = true;
+              }
 
-                            <!-- 4-->
-                            <div class="item">
-                            <div class="col-md-12 wow fadeInUp delay-3">
-                                <div class="main_services text-center" >
-                                    <a href="#">
-                                    <div class="round_icon_img">
-                                        <i class="icofont-network-tower"></i>
-                                    </div>
-                                    <h3 class="mt-3"> Lorem ipsum dolor sit </h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati vitae illum esse incidunt impedit consequuntur veniam. Laboriosam repellendus a quas fugiat dolor quidem sapiente. Omnis impedit officiis eius iste fugit. </p>
-                                    </a>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         </div>
-    </div>
-</section> 
+              // This is the only real 'smart' part of the algorithm
 
-  </body>
+              // First calculate the number of needed columns for the whole carousel
+              var perPage = rowsNb * colsNb;
+              var pageIndex = Math.floor(slidesNb / perPage);
+              var fakeColsNb = pageIndex * colsNb + (slidesNb >= (pageIndex * perPage + colsNb) ? colsNb : (slidesNb % colsNb));
+
+              // Then populate with needed html markup
+              var count = 0;
+              for (var i = 0; i < fakeColsNb; i++) {
+                // For each column, create a new wrapper div
+                var fakeCol = $('<div class="fake-col-wrapper"></div>').appendTo(el);
+                for (var j = 0; j < rowsNb; j++) {
+                  // For each row in said column, calculate which slide should be present
+                  var index = Math.floor(count / perPage) * perPage + (i % colsNb) + j * colsNb;
+                  if (index < slidesNb) {
+                    // If said slide exists, move it under wrapper div
+                    slides.filter('[data-slide-index=' + index + ']').detach().appendTo(fakeCol);
+                  }
+                  count++;
+                }
+              }
+              // end of 'smart' part
+
+              previousRowsNb = rowsNb;
+              previousColsNb = colsNb;
+
+              if (reInit) {
+                // re-init carousel with new markup
+                carousel = el.owlCarousel(carouselOptions);
+              }
+            }
+          };
+
+          // Trigger possible update when window size changes
+          $(window).on('resize', updateCarousel);
+
+          // We need to execute the algorithm once before first init in any case
+          updateCarousel();
+        }
+      }
+
+      // init
+      carousel = el.owlCarousel(carouselOptions);
+    });
+  </script>
+</body>
 </html>
