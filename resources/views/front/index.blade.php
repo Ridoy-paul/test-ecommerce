@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Owl Carousel Multiple Rows</title>
+  <title>Ecommerce Demo</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -36,7 +36,7 @@
       border: none;
       padding: 10px 10px;
       z-index: 1000;
-      font-size: 50px !important;
+      font-size: 120px !important;
     }
     .owl-nav button.owl-prev {
       left: 0;
@@ -44,6 +44,17 @@
     .owl-nav button.owl-next {
       right: 0;
     }
+
+    button.owl-next {
+      background: none !important;
+      color: black !important;
+    }
+
+    button.owl-prev {
+      background: none !important;
+      color: black !important;
+    }
+    
 
     /* product item  */
     .product-image {
@@ -82,59 +93,48 @@
   </style>
 </head>
 <body>
-  <header>
-    <b>Note:</b> The whole logic is done in javascript, but be sure to add <b>data-slide-index="0..n"</b> attributes to your slides HTML, as it is needed. ⚠
-  </header>
+ 
   <div class="content">
     <section>
-        <div class="container">
+        <div class="container pb-5">
             <div class="row">
+              <div class="col-md-12 text-center">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+                  <div class="container-fluid">
+                      <a class="navbar-brand" href="{{ route('index') }}">Ecommerce Demo</a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                              <li class="nav-item">
+                                  <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Home</a>
+                              </li>
+                              <li class="nav-item">
+                                  <a class="nav-link" href="#">Shop</a>
+                              </li>
+                          </ul>
+                          <div class="d-flex">
+                              @guest
+                                  <a href="{{ route('register') }}" class="btn btn-success" type="submit">Register</a>
+                                  <a href="{{ route('login') }}" class="btn btn-primary ms-3" type="submit">Login</a>
+                              @else
+                                  <a href="{{ route('account.dashboard') }}" class="btn btn-primary" type="submit">Dashboard</a>
+                                  <form action="{{ route('logout') }}" method="POST" class="ms-3">
+                                      @csrf
+                                      <button class="btn btn-danger" type="submit">Logout</button>
+                                  </form>
+                              @endguest
+                          </div>
+                      </div>
+                  </div>
+              </nav>              
+              </div>
                 <div class="col-md-12">
-                    <div class="owl-carousel owl-theme p-3">
-                        @for($i = 0; $i <= 20; $i++)
-                        <div class="slide" data-slide-index="{{ $i }}">
-                            <div class="product-info">
-                                <div class="product-header">
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <img src="{{ asset('front_resources/img/seller.png') }}" style="width: 50px; height: 50px;">
-                                    {{-- <span>Seller Name</span> --}}
-                                  </div>
-                                  <div class="bg-light rounded m-1">
-                                    <table class="table table-bordered mb-0">
-                                        <tbody>
-                                          <tr>
-                                            <td colspan="2">T-shirt</td>
-                                          </tr>
-                                          <tr>
-                                            <td>Min Order: 1pcs</td>
-                                            <td>Sl No: 121</td>
-                                          </tr>
-                                        </tbody>
-                                    </table>
-                                  </div>
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <img src="{{ asset('front_resources/img/customer-review.png') }}" style="width: 50px; height: 50px;">
-                                  </div>
-                                </div>
-                                <div class="text-center">
-                                  <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Product Image" class="product-image">
-                                </div>
-                                <div class="product-footer">
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <img src="{{ asset('front_resources/img/clock.png') }}"  style="width: 20px; height: 20px;">
-                                    <span style="font-size: 14px;">33:05m ago</span>
-                                  </div>
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <img src="{{ asset('front_resources/img/map.png') }}" style="width: 20px; height: 20px;">
-                                    <span>Dhaka</span>
-                                  </div>
-                                  <div class="bg-light rounded p-2 m-1">
-                                    <img src="{{ asset('front_resources/img/reward.png') }}" style="width: 20px; height: 20px;">
-                                    <span>Original</span>
-                                  </div>
-                                </div>
-                            </div>
-                            @endfor
+                    <div class="owl-carousel owl-theme p-2">
+                      @foreach($products as $key => $product)
+                          @include('front.include.product_item')
+                      @endforeach
                       </div>
                 </div>
             </div>

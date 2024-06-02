@@ -50,7 +50,7 @@ class HomeController extends Controller
                 return Datatables::of($sellerList)
                         ->addIndexColumn()
                         ->addColumn('district_name', function($row){
-                            return $row->districtInfo->name;
+                            return $row->district_info->name;
                         })
                         ->addColumn('product_qty', function($row){
                             return DB::table('products')->where('seller_id', $row->id)->count('id');
