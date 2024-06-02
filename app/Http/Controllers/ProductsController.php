@@ -50,11 +50,11 @@ class ProductsController extends Controller
                         
                         ->addColumn('action', function($row){
                             $editUrl = route('product.edit', encrypt($row->id));
-                            //$deleteUrl = route('product.destroy', $row->id);
+                            $deleteUrl = route('product.destroy', ['id' =>  encrypt($row->id)]);
                             
                             return '
                                 <a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>
-                                <a href="' . $editUrl . '" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm" type="button" onclick="globalDeleteConfirm(\'' .$deleteUrl. '\')" data-bs-toggle="modal" data-bs-target="#globalDeleteModal">Delete</a>
                             ';
                         })
                         
@@ -82,16 +82,6 @@ class ProductsController extends Controller
             return back()->withError($e->getMessage());
         }
     }
-
-    // public function generateProductSerial() {
-    //     $serial = rand(1000, 9999);
-    //     $exists = Products::where('serial_number', $serial)->exists();
-    //     if ($exists) {
-    //         return $this->generateProductSerial();
-    //     }
-
-    //     return $serial;
-    // }
 
     public function generateProductSerial($number) {
         $serial = str_pad($number, 5, '0', STR_PAD_LEFT);
@@ -239,8 +229,27 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
-        //
+        try {
+            $id = decrypt($id);
+            $product = Products::find($id);
+            if (is_null($product)) {
+                return redirect()->back()->with('error', 'No Product Found!');
+            }
+
+            if (!empty($product->thumbnail_image)) {
+                $imagePath = public_path('images/' . $product->thumbnail_image);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+
+            $product->delete();
+            return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
     }
+
 }
