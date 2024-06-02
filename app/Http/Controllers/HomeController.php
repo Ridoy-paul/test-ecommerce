@@ -31,6 +31,10 @@ class HomeController extends Controller
     public function sellerList(Request $request)
     {
         try {
+            if(Auth::user()->account_type <> 'super_admin') {
+                return redirect()->back()->with('error', 'You can not access this page.');
+            }
+
             if ($request->ajax()) {
 
                 $sellerList = User::where('acctount_type', 'seller')->orderBy('id', 'DESC')->get();
@@ -75,6 +79,9 @@ class HomeController extends Controller
     public function sellerCreate()
     {
         try {
+            if(Auth::user()->account_type <> 'super_admin') {
+                return redirect()->back()->with('error', 'You can not access this page.');
+            }
             $districtList = District::all();
             return view('admin.pages.seller.create', compact('districtList'));
         } 
@@ -85,13 +92,17 @@ class HomeController extends Controller
 
     public function sellerStore(Request $request)
     {
+        if(Auth::user()->account_type <> 'super_admin') {
+            return redirect()->back()->with('error', 'You can not access this page.');
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
             'phone' => 'required|string|max:20',
             'district_code' => 'required|string|max:255',
             'address' => 'nullable|string',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
@@ -99,8 +110,8 @@ class HomeController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->phone = $validatedData['phone'];
-        $user->district_code = $validatedData['district_code'];
-        $user->address = $validatedData['address'];
+        $user->disctrict_code = $validatedData['district_code'];
+        $user->adress = $validatedData['address'];
         $user->password = Hash::make($validatedData['password']);
 
         if ($request->hasFile('image')) {
