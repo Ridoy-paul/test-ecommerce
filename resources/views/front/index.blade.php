@@ -58,7 +58,7 @@
     .product-header, .product-footer {
       background-color: #ffc107;
       color: #000;
-      padding: 10px;
+      padding: 2px;
       text-align: center;
     }
     .product-header {
@@ -76,7 +76,7 @@
       align-items: center;
     }
     .product-footer img {
-      margin-right: 5px;
+      margin-right: 2px;
     }
 
   </style>
@@ -96,32 +96,32 @@
                             <div class="product-info">
                                 <div class="product-header">
                                   <div>
-                                    <img src="seller_picture.png" alt="Seller Picture" style="width: 50px; height: 50px;">
+                                    <img src="{{ asset('front_resources/img/seller.png') }}" style="width: 50px; height: 50px;">
                                     <span>Seller Name</span>
                                   </div>
                                   <div>
-                                    <strong>Product Name:</strong> T-shirt<br>
+                                     T-shirt<br>
                                     <strong>Min Order:</strong> 1pcs<br>
                                     <strong>Product Serial No:</strong> 121
                                   </div>
                                   <div>
-                                    <img src="seller_review.png" alt="Seller Review" style="width: 50px; height: 50px;">
+                                    <img src="{{ asset('front_resources/img/customer-review.png') }}" style="width: 50px; height: 50px;">
                                   </div>
                                 </div>
                                 <div class="text-center">
                                   <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Product Image" class="product-image">
                                 </div>
                                 <div class="product-footer">
-                                  <div>
-                                    <img src="clock_icon.png" alt="Clock Icon" style="width: 20px; height: 20px;">
-                                    <span>33:05m ago</span>
+                                  <div class="bg-light rounded p-2 m-1">
+                                    <img src="{{ asset('front_resources/img/clock.png') }}"  style="width: 20px; height: 20px;">
+                                    <span style="font-size: 14px;">33:05m ago</span>
                                   </div>
-                                  <div>
-                                    <img src="location_icon.png" alt="Location Icon" style="width: 20px; height: 20px;">
+                                  <div class="bg-light rounded p-2 m-1">
+                                    <img src="{{ asset('front_resources/img/map.png') }}" style="width: 20px; height: 20px;">
                                     <span>Dhaka</span>
                                   </div>
-                                  <div>
-                                    <img src="original_icon.png" alt="Original Icon" style="width: 20px; height: 20px;">
+                                  <div class="bg-light rounded p-2 m-1">
+                                    <img src="{{ asset('front_resources/img/reward.png') }}" style="width: 20px; height: 20px;">
                                     <span>Original</span>
                                   </div>
                                 </div>
