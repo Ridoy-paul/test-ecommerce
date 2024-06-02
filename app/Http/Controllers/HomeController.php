@@ -25,7 +25,7 @@ class HomeController extends Controller
         try {
             $data = [];
             if(Auth::user()->account_type == 'super_admin') {
-                $data['totalSeller'] = User::where('account_type', 'seller')->count('id');
+                $data['totalSellers'] = User::where('account_type', 'seller')->count('id');
                 $data['totalProducts'] = Products::count('id');
             } else {
                 $data['totalProducts'] = Products::where('seller_id', Auth::user()->id)->count('id');

@@ -25,9 +25,9 @@
             <img width="100%" src="{{ asset('images/' . $product->thumbnail_image) }}" class="product-image">
         </div>
         <div class="product-footer">
-            <div class="bg-light rounded p-2 m-1">
+            <div class="bg-light rounded p-2 m-1" data-created-at="{{ $product->created_at }}">
                 <img src="{{ asset('front_resources/img/clock.png') }}" style="width: 20px; height: 20px;">
-                <span style="font-size: 14px;">33:05m ago</span>
+                <span style="font-size: 14px;" class="time-elapsed"></span>
             </div>
             <div class="bg-light rounded p-2 m-1">
                 <img src="{{ asset('front_resources/img/map.png') }}" style="width: 20px; height: 20px;">

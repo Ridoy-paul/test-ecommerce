@@ -90,6 +90,15 @@
       margin-right: 2px;
     }
 
+    .product-image {
+        transition: transform 0.3s ease;
+    }
+
+    .slide:hover .product-image {
+        transform: scale(1.02);
+        border-radius: 5px;
+    }
+
   </style>
 </head>
 <body>
@@ -157,24 +166,23 @@
         dots: true,
         slideBy: 'page',
         autoplay: true,
-        autoplayTimeout: 10000, // 10 seconds
+        autoplayTimeout: 10000,
         responsive: {
           0: {
             items: 1,
-            rows: 2 // custom option not used by Owl Carousel, but used by the algorithm below
+            rows: 2
           },
           768: {
             items: 2,
-            rows: 3 // custom option not used by Owl Carousel, but used by the algorithm below
+            rows: 3
           },
           991: {
             items: 3,
-            rows: 2 // custom option not used by Owl Carousel, but used by the algorithm below
+            rows: 2
           }
         }
       };
 
-      // Taken from Owl Carousel so we calculate width the same way
       var viewport = function() {
         var width;
         if (carouselOptions.responsiveBaseElement && carouselOptions.responsiveBaseElement !== window) {
@@ -198,7 +206,6 @@
         orderedBreakpoints.push(parseInt(breakpoint));
       }
 
-      // Custom logic is active if carousel is set up to have more than one row for some given window width
       if (severalRows) {
         orderedBreakpoints.sort(function (a, b) {
           return b - a;
@@ -211,7 +218,6 @@
           var colsNb;
           var previousColsNb = undefined;
 
-          // Calculates number of rows and cols based on current window width
           var updateRowsColsNb = function () {
             var width = viewport();
             for (var i = 0; i < orderedBreakpoints.length; i++) {
@@ -228,11 +234,9 @@
           var updateCarousel = function () {
             updateRowsColsNb();
 
-            // Carousel is recalculated if and only if a change in number of columns/rows is requested
             if (rowsNb != previousRowsNb || colsNb != previousColsNb) {
               var reInit = false;
               if (carousel) {
-                // Destroy existing carousel if any, and set html markup back to its initial state
                 carousel.trigger('destroy.owl.carousel');
                 carousel = undefined;
                 slides = el.find('[data-slide-index]').detach().appendTo(el);
@@ -240,51 +244,60 @@
                 reInit = true;
               }
 
-              // This is the only real 'smart' part of the algorithm
-
-              // First calculate the number of needed columns for the whole carousel
               var perPage = rowsNb * colsNb;
               var pageIndex = Math.floor(slidesNb / perPage);
               var fakeColsNb = pageIndex * colsNb + (slidesNb >= (pageIndex * perPage + colsNb) ? colsNb : (slidesNb % colsNb));
 
-              // Then populate with needed html markup
               var count = 0;
               for (var i = 0; i < fakeColsNb; i++) {
-                // For each column, create a new wrapper div
                 var fakeCol = $('<div class="fake-col-wrapper"></div>').appendTo(el);
                 for (var j = 0; j < rowsNb; j++) {
-                  // For each row in said column, calculate which slide should be present
                   var index = Math.floor(count / perPage) * perPage + (i % colsNb) + j * colsNb;
                   if (index < slidesNb) {
-                    // If said slide exists, move it under wrapper div
                     slides.filter('[data-slide-index=' + index + ']').detach().appendTo(fakeCol);
                   }
                   count++;
                 }
               }
-              // end of 'smart' part
 
               previousRowsNb = rowsNb;
               previousColsNb = colsNb;
 
               if (reInit) {
-                // re-init carousel with new markup
                 carousel = el.owlCarousel(carouselOptions);
               }
             }
           };
 
-          // Trigger possible update when window size changes
           $(window).on('resize', updateCarousel);
 
-          // We need to execute the algorithm once before first init in any case
           updateCarousel();
         }
       }
 
-      // init
       carousel = el.owlCarousel(carouselOptions);
     });
   </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateTime() {
+            document.querySelectorAll('.product-footer .bg-light[data-created-at]').forEach(function(el) {
+                const createdAt = new Date(el.getAttribute('data-created-at'));
+                const now = new Date();
+                const diff = now - createdAt;
+    
+                const hours = Math.floor(diff / 1000 / 60 / 60);
+                const minutes = Math.floor((diff / 1000 / 60) % 60);
+                const seconds = Math.floor((diff / 1000) % 60);
+    
+                el.querySelector('.time-elapsed').textContent = `${hours}h : ${minutes}m : ${seconds}s ago`;
+            });
+        }
+    
+        setInterval(updateTime, 1000);
+        updateTime();
+    });
+    </script>
 </body>
 </html>

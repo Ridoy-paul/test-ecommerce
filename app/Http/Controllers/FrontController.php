@@ -12,9 +12,8 @@ class FrontController extends Controller
             'seller_info' => function($query) {
                 $query->select('id', 'name', 'image', 'disctrict_code');
             }
-        ])->inRandomOrder()->get(['id', 'seller_id', 'title', 'thumbnail_image', 'unit_type', 'min_order_qty', 'serial_number', 'average_review', 'original_or_copy']);
+        ])->inRandomOrder()->get(['id', 'seller_id', 'title', 'thumbnail_image', 'unit_type', 'min_order_qty', 'serial_number', 'average_review', 'original_or_copy', 'created_at']);
 
-       
         return view('front.index', compact('products'));
     }
 }

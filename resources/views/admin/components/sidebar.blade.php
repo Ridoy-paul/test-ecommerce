@@ -1,11 +1,10 @@
 <nav id="sidebar" class="sidebar js-sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="{{ route('account.dashboard') }}">
-            <span class="align-middle">Demo DEV</span>
+            <span class="align-middle">Ecommerce Demo</span>
         </a>
 
         <ul class="sidebar-nav">
-            
             <li class="sidebar-item {{ isActiveRoute(['account.dashboard']) }}">
                 <a class="sidebar-link" href="{{ route('account.dashboard') }}">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
@@ -14,7 +13,7 @@
             
             <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ route('account.profile', ['id' =>  encrypt(Auth::user()->id)]) }}">
-                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Business Profile</span>
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">My Business Profile</span>
                 </a>
             </li>
             
