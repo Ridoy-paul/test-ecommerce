@@ -23,8 +23,14 @@ class HomeController extends Controller
     public function dashboard()
     {
         try {
-            $userId = Auth::user()->id;
-            return view('admin.pages.dashboard.home');
+            $data = [];
+            if(Auth::user()->account_type == 'super_admin') {
+                $data['totalSeller'] = User::where('account_type', 'seller')->count('id');
+                $data['totalProducts'] = Products::count('id');
+            } else {
+                $data['totalProducts'] = Products::where('seller_id', Auth::user()->id)->count('id');
+            }
+            return view('admin.pages.dashboard.home', compact('data'));
         } catch (\Exception $e) {
             return back()->withError($e->getMessage());
         }
