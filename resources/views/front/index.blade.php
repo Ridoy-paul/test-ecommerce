@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Owl Carousel Multiple Rows</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
   <!-- Owl Carousel CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
@@ -15,7 +18,7 @@
       margin-bottom: 40px;
     }
     .slide {
-      font-size: 50px;
+      /* font-size: 50px; */
       text-align: center;
       border: 1px solid black;
       margin-bottom: 20px;
@@ -24,40 +27,118 @@
       display: flex;
       flex-direction: column;
     }
+    .owl-nav button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 10px;
+      z-index: 1000;
+      font-size: 50px !important;
+    }
+    .owl-nav button.owl-prev {
+      left: 0;
+    }
+    .owl-nav button.owl-next {
+      right: 0;
+    }
+
+    /* product item  */
+    .product-image {
+      max-width: 100%;
+      height: auto;
+    }
+    .product-info {
+      border: 1px solid #ffc107;
+      padding: 10px;
+      background-color: #fff3cd;
+    }
+    .product-header, .product-footer {
+      background-color: #ffc107;
+      color: #000;
+      padding: 10px;
+      text-align: center;
+    }
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .product-footer div {
+      display: flex;
+      align-items: center;
+    }
+    .product-footer img {
+      margin-right: 5px;
+    }
+
   </style>
 </head>
 <body>
   <header>
-    'Simple' example of how to achieve a <b>truly responsive multiple rows</b> carousel using Owl Carousel. <a href="https://stackoverflow.com/a/64356269/2500651">Corresponding Stack Overflow post</a>. Feel free to use this code if you need it. 👾<br/><br/>
-    ✅ Tested & working with <b>any number of columns and rows, and any breakpoints</b>. Also with loop: true/false, slideBy: 1/n/'page', etc...<br/>
-    ✅ Implementation is as efficient as possible, meaning <b>the carousel is recalculated only if absolutely necessary</b>. I haven't noticed any kind of stuttering or visual artifacts.<br/>
-    ✅ For readability and simplicity purposes, setting the desired number of rows for a given window width is done the exact same way as the native number of items, in the carousel options object. 'items' here acts as the number of columns visible at a time.<br/><br/>
     <b>Note:</b> The whole logic is done in javascript, but be sure to add <b>data-slide-index="0..n"</b> attributes to your slides HTML, as it is needed. ⚠
   </header>
-  <div class="owl-carousel owl-theme">
-    <div class="slide" data-slide-index="0">1</div>
-    <div class="slide" data-slide-index="1">2</div>
-    <div class="slide" data-slide-index="2">3</div>
-    <div class="slide" data-slide-index="3">4</div>
-    <div class="slide" data-slide-index="4">5</div>
-    <div class="slide" data-slide-index="5">6</div>
-    <div class="slide" data-slide-index="6">7</div>
-    <div class="slide" data-slide-index="7">8</div>
-    <div class="slide" data-slide-index="8">9</div>
-    <div class="slide" data-slide-index="9">10</div>
-    <div class="slide" data-slide-index="10">11</div>
-    <div class="slide" data-slide-index="11">12</div>
-    <div class="slide" data-slide-index="12">7</div>
-    <div class="slide" data-slide-index="13">8</div>
-    <div class="slide" data-slide-index="14">9</div>
-    <div class="slide" data-slide-index="15">10</div>
-    <div class="slide" data-slide-index="16">11</div>
-    <div class="slide" data-slide-index="17">12</div>
+  <div class="content">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="owl-carousel owl-theme p-3">
+                        @for($i = 0; $i <= 20; $i++)
+                        <div class="slide" data-slide-index="{{ $i }}">
+                            <div class="product-info">
+                                <div class="product-header">
+                                  <div>
+                                    <img src="seller_picture.png" alt="Seller Picture" style="width: 50px; height: 50px;">
+                                    <span>Seller Name</span>
+                                  </div>
+                                  <div>
+                                    <strong>Product Name:</strong> T-shirt<br>
+                                    <strong>Min Order:</strong> 1pcs<br>
+                                    <strong>Product Serial No:</strong> 121
+                                  </div>
+                                  <div>
+                                    <img src="seller_review.png" alt="Seller Review" style="width: 50px; height: 50px;">
+                                  </div>
+                                </div>
+                                <div class="text-center">
+                                  <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Product Image" class="product-image">
+                                </div>
+                                <div class="product-footer">
+                                  <div>
+                                    <img src="clock_icon.png" alt="Clock Icon" style="width: 20px; height: 20px;">
+                                    <span>33:05m ago</span>
+                                  </div>
+                                  <div>
+                                    <img src="location_icon.png" alt="Location Icon" style="width: 20px; height: 20px;">
+                                    <span>Dhaka</span>
+                                  </div>
+                                  <div>
+                                    <img src="original_icon.png" alt="Original Icon" style="width: 20px; height: 20px;">
+                                    <span>Original</span>
+                                  </div>
+                                </div>
+                            </div>
+                            
+                            @endfor
+                      </div>
+                </div>
+            </div>
+        </div>
+    </section>
+  </div>
+  
   </div>
 
-  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <!-- Owl Carousel JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <script>
     $(document).ready(function() {
