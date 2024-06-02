@@ -95,16 +95,24 @@
                         <div class="slide" data-slide-index="{{ $i }}">
                             <div class="product-info">
                                 <div class="product-header">
-                                  <div>
+                                  <div class="bg-light rounded p-2 m-1">
                                     <img src="{{ asset('front_resources/img/seller.png') }}" style="width: 50px; height: 50px;">
-                                    <span>Seller Name</span>
+                                    {{-- <span>Seller Name</span> --}}
                                   </div>
-                                  <div>
-                                     T-shirt<br>
-                                    <strong>Min Order:</strong> 1pcs<br>
-                                    <strong>Product Serial No:</strong> 121
+                                  <div class="bg-light rounded p-2 m-1">
+                                    <div class="row">
+                                        <div class="col-md-12 border">
+                                            T-shirt
+                                        </div>
+                                        <div class="col-md-6 border">
+                                            Min Order: 1pcs
+                                        </div>
+                                        <div class="col-md-6 border">
+                                            Sl No: 121
+                                        </div>
+                                    </div>
                                   </div>
-                                  <div>
+                                  <div class="bg-light rounded p-2 m-1">
                                     <img src="{{ asset('front_resources/img/customer-review.png') }}" style="width: 50px; height: 50px;">
                                   </div>
                                 </div>
