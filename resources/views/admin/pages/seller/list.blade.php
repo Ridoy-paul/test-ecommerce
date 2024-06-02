@@ -32,8 +32,10 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<x-delete-modal-box />
+
 @endsection
 
 @section('script')

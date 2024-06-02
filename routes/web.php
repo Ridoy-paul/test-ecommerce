@@ -25,6 +25,7 @@ Route::middleware([
                 Route::get('/all', 'sellerList')->name('list');
                 Route::get('/create', 'sellerCreate')->name('create');
                 Route::post('/store', 'sellerStore')->name('store');
+                Route::get('/destroy/{id}', 'sellerDestroy')->name('destroy');
             });
         });
         

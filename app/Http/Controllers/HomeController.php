@@ -51,11 +51,10 @@ class HomeController extends Controller
                         
                         ->addColumn('action', function($row){
                             $editUrl = route('account.profile', ['id' =>  encrypt($row->id)]);
-                            //$deleteUrl = route('product.destroy', $row->id);
-                            
+                            $deleteUrl = route('seller.destroy', ['id' =>  encrypt($row->id)]);
                             return '
                                 <a href="' . $editUrl . '" class="btn btn-primary btn-sm">Edit</a>
-                                <a href="' . $editUrl . '" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="javascript:void(0)" class="btn btn-danger btn-sm" type="button" onclick="globalDeleteConfirm(\'' .$deleteUrl. '\')" data-bs-toggle="modal" data-bs-target="#globalDeleteModal">Delete</a>
                             ';
                         })
                         
@@ -154,6 +153,22 @@ class HomeController extends Controller
 
         $user->save();
         return redirect()->route('account.profile', ['id' => encrypt($user->id)])->with('success', 'Profile updated successfully.');
+    }
+
+    public function sellerDestroy($id)
+    {
+        try {
+            if(Auth::user()->account_type <> 'super_admin') {
+                return redirect()->back()->with('error', 'You can not access this page.');
+            }
+
+            $id = decrypt($id);
+            $user = User::where('id', $id)->first();
+            $districtList = District::all();
+            //return view('admin.pages.account.profile', compact('user', 'districtList'));
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
     }
 
     
