@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Helpers\FileHelper;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -37,26 +38,19 @@ class HomeController extends Controller
 
             if ($request->ajax()) {
 
-                $sellerList = User::where('acctount_type', 'seller')->orderBy('id', 'DESC')->get();
+                $sellerList = User::where('account_type', 'seller')->orderBy('id', 'DESC')->get(['id', 'name', 'phone', 'email', 'disctrict_code']);
 
                 return Datatables::of($sellerList)
                         ->addIndexColumn()
                         ->addColumn('district_name', function($row){
-                            return $row->seller_info->name;
+                            return $row->districtInfo->name;
                         })
                         ->addColumn('product_qty', function($row){
-                            $createdAt = Carbon::parse($row->created_at);
-                            $diffInMinutes = $createdAt->diffInMinutes();
-                            $diffInHours = $createdAt->diffInHours();
-                            $hours = floor($diffInMinutes / 60);
-                            $minutes = $diffInMinutes % 60;
-                        
-                            $formattedTime = sprintf('%02d : %02dm ago', $hours, $minutes);
-                            return $formattedTime;
+                            return DB::table('products')->where('seller_id', $row->id)->count('id');
                         })
                         
                         ->addColumn('action', function($row){
-                            $editUrl = route('product.edit', encrypt($row->id));
+                            $editUrl = route('account.profile', ['id' =>  encrypt($row->id)]);
                             //$deleteUrl = route('product.destroy', $row->id);
                             
                             return '
@@ -119,7 +113,6 @@ class HomeController extends Controller
         }
         
         $user->save();
-
         return redirect()->route('seller.list')->with('success', 'Seller created successfully.');
     }
 
@@ -160,7 +153,6 @@ class HomeController extends Controller
         }
 
         $user->save();
-
         return redirect()->route('account.profile', ['id' => encrypt($user->id)])->with('success', 'Profile updated successfully.');
     }
 

@@ -69,6 +69,10 @@ class User extends Authenticatable
         ];
     }
 
+    public function districtInfo() {
+        return $this->belongsTo(District::class, 'disctrict_code');
+    }
+
 
 
 }
